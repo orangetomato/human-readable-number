@@ -18,19 +18,13 @@ module.exports = function toReadable(number) {
     }
 
     if (words[underHundredNumber]) {
-        result += `${words[underHundredNumber]}`;
-    } else {
-        if (Number(tens)) {
-            if (Number(units)) {
-                result += `${words[tens + 0]} ${words[units]}`;
-            } else {
-                result += `${words[tens + 0]}`;
-            }
-        } else {
-            if (Number(units)) {
-                result += `${words[units]}`;
-            }
-        }
+        result += words[underHundredNumber];
+    } else if (tens !== '0' && units !== '0') {
+        result += `${words[`${tens}0`]} ${words[units]}`;
+    } else if (tens !== '0' && units === '0') {
+        result += `${words[`${tens}0`]}`;
+    } else if (tens === '0' && units !== '0') {
+        result += `${words[units]}`;
     }
 
     return result.trim();
